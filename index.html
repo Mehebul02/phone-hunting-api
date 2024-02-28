@@ -26,7 +26,7 @@
             <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
                 <br>alteration in some form, by injected humou.
             </p>
-            <button class="btn bg-secondary text-white font-bold">Buy Now</button>
+            <button onclick="scrollToSection()" class="btn bg-secondary text-white font-bold">Buy Now</button>
 
         </div>
         <div class="flex justify-center mt-10">
@@ -34,20 +34,20 @@
         </div>
 
     </header>
-    <main class="max-w-[1200px] mx-auto">
+    <main id="buy_phone" class="max-w-[1200px] mx-auto">
         <!-- Search your phone -->
         <section>
             <h1 class="text-4xl text-black font-bold text-center">Search your phone</h1>
 
             <!-- input  -->
             <div class=" block text-center mt-10 p-10">
-                <input type="text" placeholder= " Search your phone" class="input input-bordered w-full max-w-xs " />
-                <button class="btn btn-secondary text-xl">Search</button>
+                <input id="input_field" type="text" placeholder= " Search your phone" class="input input-bordered w-full max-w-xs " />
+                <button onclick="searchHandle()" class="btn btn-secondary text-xl">Search</button>
             </div>
 
         </section>
         <!-- Phone card  -->
-        <div id="phone_card_container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div  id="phone_card_container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
         </div>
 
