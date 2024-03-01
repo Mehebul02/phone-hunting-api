@@ -1,22 +1,28 @@
-
-const loadPhone = async (searchPhone="12") => {
+const loadPhone = async (searchPhone = '12', isShowAll) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`
   );
   const data = await res.json();
   const phones = data.data;
-  displayPhone(phones);
+  displayPhone(phones, isShowAll);
 };
-const displayPhone = (phones) => {
-  
+const displayPhone = (phones, isShowAll) => {
   const phoneContainer = document.getElementById("phone_card_container");
-  phones =phones.slice(0,12)
-  phoneContainer.innerText = ''
+  phoneContainer.innerText = "";
+  const showAllContainer = document.getElementById("show_all_containet");
+  if (phones.length > 12 && !isShowAll) {
+    showAllContainer.classList.remove("hidden");
+  } else {
+    showAllContainer.classList.add("hidden");
+  }
+  console.log("is show", isShowAll);
+  if (!isShowAll) {
+    phones = phones.slice(0, 12);
+  }
   phones.forEach((phone) => {
-    
     const div = document.createElement("div");
-   
-    div.classList = `card w-96 bg-base-100 shadow-xl`;
+
+    div.classList = `card  bg-base-100  shadow-xl`;
     div.innerHTML = `<figure><img src='${phone.image}'alt="Shoes" /></figure>
     <div class="card-body">
       <h2 class="card-title">${phone.phone_name}</h2>
@@ -26,30 +32,33 @@ const displayPhone = (phones) => {
       </div>
     </div>`;
     phoneContainer.appendChild(div);
-    
   });
- toggleLoading(false)
+  toggleLoading(false);
 };
-const searchHandle = () => {
-  toggleLoading(true)
+const searchHandle = (isShowAll) => {
+  toggleLoading(true);
   const searchInputText = document.getElementById("input_field").value;
-  loadPhone(searchInputText);
+  loadPhone(searchInputText, isShowAll);
 };
-// spinner Loading 
+// show All
+const showAll = () => {
+  searchHandle(true);
+};
+// spinner Loading
 const toggleLoading = (isLoading) => {
-      const toggleLoading = document.getElementById('toggle_loading');
-      if(isLoading){
-        toggleLoading.classList.remove('hidden')
-      }
-      else{
-        toggleLoading.classList.add('hidden')
-      }
-      
+  const toggleLoading = document.getElementById("toggle_loading");
+  if (isLoading) {
+    toggleLoading.classList.remove("hidden");
+  } else {
+    toggleLoading.classList.add("hidden");
   }
-  // scroll 
-  function scrollToSection() {
-    const section = document.getElementById("search_section");
-    section.scrollIntoView({ behavior: "smooth" });
-  }
-  
+};
+// show all
+
+// scroll
+function scrollToSection() {
+  const section = document.getElementById("search_section");
+  section.scrollIntoView({ behavior: "smooth" });
+}
+
 loadPhone();
