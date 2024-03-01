@@ -28,7 +28,7 @@ const displayPhone = (phones, isShowAll) => {
       <h2 class="card-title">${phone.phone_name}</h2>
       <p>If a dog chews shoes whose shoes does he choose?</p>
       <div class="card-actions justify-center">
-        <button onclick="showDetails()" class="btn btn-primary ">Show Details</button>
+        <button onclick="showDetails('${phone.slug}')" class="btn btn-primary ">Show Details</button>
       </div>
     </div>`;
     phoneContainer.appendChild(div);
@@ -36,20 +36,30 @@ const displayPhone = (phones, isShowAll) => {
   toggleLoading(false);
 };
 // Show Details 
-const showDetails=async ()=>{
-  const res = await fetch('https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089');
+const showDetails=async (id)=>{
+  const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
   const data =await res.json();
   const phoneFeatures =data.data;
-  console.log(phoneFeatures)
+  // console.log(phoneFeatures)
   showModal(phoneFeatures)
 };
 const showModal=(phone) =>{
+  console.log(phone)
   const modalContainer = document.getElementById('modal_container');
-  const phoneName = document.getElementById('phone_name');
-  console.log(phoneName)
-  phoneName.innerText =phone.name;
+  // const phoneName = document.getElementById('phone_name');
+  // console.log(phoneName)
+  // phoneName.innerText =`${phone.name}`;
   const phoneContainer =document.getElementById('phone_details_container');
-  phoneContainer.innerHTML =`<img src='${phone.image}'alt="Shoes" />
+  phoneContainer.innerHTML =`<img class='mx-auto' src='${phone.image}'alt="Shoes" />
+ 
+  <h1 class='text-center text-2xl text-black font-bold'>${phone.name}</h1>
+  <p>Storage :${phone.mainFeatures.storage}</p>
+  <p>DisplaySize:${phone.mainFeatures.displaySize}</p>
+  <p>ChipSet: ${phone.mainFeatures.chipSet}</p>
+  <p>Memory: ${phone.mainFeatures.memory}</p>
+  <p>ReleaseDate: ${phone.releaseDate}</p>
+  <p>Sensors: ${phone.mainFeatures.sensors}</p>
+  <p>GPS: ${phone.others?.GPS ||'Gps available'}</p>
 
   `
  modal_container.showModal(phone)
