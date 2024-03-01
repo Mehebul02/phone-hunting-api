@@ -1,5 +1,5 @@
 
-const loadPhone = async (searchPhone) => {
+const loadPhone = async (searchPhone="12") => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`
   );
@@ -46,4 +46,10 @@ const toggleLoading = (isLoading) => {
       }
       
   }
-// loadPhone();
+  // scroll 
+  function scrollToSection() {
+    const section = document.getElementById("search_section");
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+  
+loadPhone();
